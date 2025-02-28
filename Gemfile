@@ -72,3 +72,5 @@ gem "sassc-rails"
 gem "nokogiri"
 
 gem "dotenv-rails"
+
+gem "cloudinary"
