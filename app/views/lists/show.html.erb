@@ -1,0 +1,38 @@
+<div class="d-flex w-75 mx-auto justify-content-between align-items-center my-5">
+  <h1 class="mb-0">My <%= @list.name %> movies</h1>
+  <%= link_to new_list_bookmark_path(@list) do %>
+    <button type="button" class="btn btn-outline-dark">Add</button>
+  <% end %>
+</div>
+
+<div class="container">
+    <div class="row g-4 justify-content-start">
+        <% @list.bookmarks.each do |bookmark| %>
+        <div class="col-md-4 d-flex justify-content-center">
+            <div class="card shadow-lg w-100" style="max-width: 400px;">
+                <!-- Image -->
+                <img src="<%= bookmark.movie.poster_url %>" class="card-img-top" alt="<%= bookmark.movie.title %>" style="height: 200px; object-fit: cover;">
+
+                <!-- Contenu -->
+                <div class="card-body">
+                  <div class="d-flex align-items-center gap-2">
+                      <h5 class="card-title mb-0 fw-bold text-dark"><%= bookmark.movie.title %></h5>
+                      <span class="text-muted"><%= bookmark.movie.rating.round(1) %></span>
+                      <i class="fa-solid fa-star text-warning"></i>
+                  </div>
+                  <p class="card-text pt-2"><%= bookmark.movie.overview %></p>
+                </div>
+
+                <!-- Bandeau en bas -->
+                <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+                    <i class="fa-solid fa-quote-left"></i>
+                    <span class="text-muted text-truncate w-75 overflow-hidden"><%= bookmark.comment %></span>
+                    <%= link_to list_bookmark_path(@list, bookmark), data: { turbo_method: :delete, turbo_confirm: "Es-tu sûr ?" } do %>
+                    <i class="fa-solid fa-trash text-danger"></i>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
